@@ -20,7 +20,7 @@ resource "aws_eks_cluster" "main" {
   encryption_config {
     resources = ["secrets"]
     provider {
-      key_arn = "CREATE KEY"
+      key_arn = aws_kms_key.eks_cluster_key.arn
     }
   }
 
@@ -29,6 +29,10 @@ resource "aws_eks_cluster" "main" {
     LAB   = "tesi_mattia"
     infra = "terraform"
   }
+}
+
+resource "aws_kms_key" "eks_cluster_key" {
+  
 }
 
 resource "aws_eks_addon" "example" {
