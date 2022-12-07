@@ -38,7 +38,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "log_bucket_enc_co
 }
 
 resource "aws_kms_key" "s3_logging_key" {
-
+  enable_key_rotation = true
 }
 
 resource "aws_s3_bucket_versioning" "log_bucket_versioning" {
