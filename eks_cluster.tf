@@ -62,6 +62,8 @@ resource "aws_iam_role" "eks_cluster" {
     }
   )
 
+
+
   tags = {
     Name  = "${var.eks_cluster_name}-cluster"
     LAB   = "tesi_mattia"

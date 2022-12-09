@@ -14,6 +14,7 @@ resource "aws_flow_log" "s3_log" {
 resource "aws_s3_bucket" "log_bucket" {
   bucket_prefix = "demo_infra_log"
 
+
   lifecycle_rule {
 
     enabled = true
@@ -126,3 +127,4 @@ resource "aws_s3_bucket_lifecycle_configuration" "log_configuration" {
   }
 }
 */
+
