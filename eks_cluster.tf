@@ -32,7 +32,7 @@ resource "aws_eks_cluster" "main" {
 }
 
 resource "aws_kms_key" "eks_cluster_key" {
-  
+  enable_key_rotation = true
 }
 
 resource "aws_eks_addon" "example" {
