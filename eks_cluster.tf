@@ -8,20 +8,31 @@ resource "aws_eks_cluster" "main" {
     ])
     security_group_ids      = [aws_security_group.control_plane_sg.id]
     endpoint_private_access = true
-
+    endpoint_public_access  = false
   }
-
+  enabled_cluster_log_types = ["api", "authenticator", "audit", "scheduler", "controllerManager"]
   # Ensure that IAM Role permissions are created before and deleted after EKS Cluster handling.
   # Otherwise, EKS will not be able to properly delete EKS managed EC2 infrastructure such as Security Groups.
   depends_on = [
     aws_iam_role_policy_attachment.eks_cluster_policy_attachment
   ]
 
+  encryption_config {
+    resources = ["secrets"]
+    provider {
+      key_arn = aws_kms_key.eks_cluster_key.arn
+    }
+  }
+
   tags = {
     Name  = var.eks_cluster_name
     LAB   = "tesi_mattia"
     infra = "terraform"
   }
+}
+
+resource "aws_kms_key" "eks_cluster_key" {
+  
 }
 
 resource "aws_eks_addon" "example" {
