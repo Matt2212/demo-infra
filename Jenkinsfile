@@ -31,8 +31,8 @@ pipeline {
                         }
                     }
                     steps {
-                        sh "regula run . --input-type tf --format junit > ${resultDir}/regula_report.xml"
-                    }
+                        sh "regula run . --input-type tf --include config/waiver.rego --format junit > ${resultDir}/regula_report.xml"
+
                 }
                 stage("Terrascan") {
                     agent{

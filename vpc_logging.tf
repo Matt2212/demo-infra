@@ -14,6 +14,26 @@ resource "aws_flow_log" "s3_log" {
 resource "aws_s3_bucket" "log_bucket" {
   bucket_prefix = "demo_infra_log"
 
+
+  lifecycle_rule {
+
+    enabled = true
+
+    noncurrent_version_transition {
+      days          = 30
+      storage_class = "STANDARD_IA"
+    }
+
+    noncurrent_version_transition {
+      days          = 60
+      storage_class = "GLACIER"
+    }
+
+    noncurrent_version_expiration {
+      days = 90
+    }
+  }
+
   tags = {
     Name  = "log_bucket"
     LAB   = "tesi_mattia"
@@ -55,3 +75,56 @@ resource "aws_s3_bucket_public_access_block" "private" {
   ignore_public_acls      = true
   restrict_public_buckets = true
 }
+
+resource "aws_s3_bucket_policy" "only_https" {
+  bucket = aws_s3_bucket.log_bucket.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Id      = "MYBUCKETPOLICY"
+    Statement = [
+      {
+        Sid       = "IPAllow"
+        Effect    = "Deny"
+        Principal = "*"
+        Action    = "s3:*"
+        Resource = [
+          aws_s3_bucket.log_bucket.arn,
+          "${aws_s3_bucket.log_bucket.arn}/*",
+        ]
+        Condition = {
+          Bool = {
+            "aws:SecureTransport" = "false"
+          }
+        }
+      },
+    ]
+  })
+
+}
+/*
+false positive, regua havent't yet recognized this type of resource, it lays on the deprecated one
+
+resource "aws_s3_bucket_lifecycle_configuration" "log_configuration" {
+  rule {
+    id = "log"
+
+    expiration {
+      days = 90
+    }
+
+    transition {
+      days          = 30
+      storage_class = "STANDARD_IA"
+    }
+
+    transition {
+      days          = 60
+      storage_class = "GLACIER"
+    }
+
+    status = "Enabled"
+  }
+}
+*/
+

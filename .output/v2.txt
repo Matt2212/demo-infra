@@ -1,0 +1,58 @@
+tfsec
+
+  timings
+  ──────────────────────────────────────────
+  disk i/o             138.225µs
+  parsing              15.698497ms
+  adaptation           455.016µs
+  checks               443.862337ms
+  total                460.154075ms
+
+  counts
+  ──────────────────────────────────────────
+  modules downloaded   0
+  modules processed    1
+  blocks processed     48
+  files read           7
+
+  results
+  ──────────────────────────────────────────
+  passed               33
+  ignored              0
+  critical             0
+  high                 0
+  medium               0
+  low                  0
+
+
+No problems detected!
+
+regula
+
+FG_R00100: S3 bucket policies should only allow requests that use HTTPS [Medium]
+           https://docs.fugue.co/FG_R00100.html
+
+  [1]: aws_s3_bucket.log_bucket
+       in vpc_logging.tf:14:1
+
+FG_R00101: S3 bucket versioning and lifecycle policies should be enabled [Medium]
+           https://docs.fugue.co/FG_R00101.html
+
+  [1]: aws_s3_bucket.log_bucket
+       in vpc_logging.tf:14:1
+
+Found 2 problems.
+
+terrascan
+
+Scan Summary -
+
+	File/Folder         :	/home/mattia/terraform-infra2
+	IaC Type            :	terraform
+	Scanned At          :	2022-12-09 11:29:39.754700258 +0000 UTC
+	Policies Validated  :	153
+	Violated Policies   :	0
+	Low                 :	0
+	Medium              :	0
+	High                :	0
+	
