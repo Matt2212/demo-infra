@@ -1,0 +1,46 @@
+tfsec
+
+  timings
+  ──────────────────────────────────────────
+  disk i/o             176.921µs
+  parsing              15.236754ms
+  adaptation           449.794µs
+  checks               423.811023ms
+  total                439.674492ms
+
+  counts
+  ──────────────────────────────────────────
+  modules downloaded   0
+  modules processed    1
+  blocks processed     48
+  files read           7
+
+  results
+  ──────────────────────────────────────────
+  passed               33
+  ignored              0
+  critical             0
+  high                 0
+  medium               0
+  low                  0
+
+
+No problems detected!
+
+regula
+
+No problems found. I've never seen anyone do it better.
+
+terrascan
+
+Scan Summary -
+
+	File/Folder         :	/home/mattia/terraform-infra2
+	IaC Type            :	terraform
+	Scanned At          :	2022-12-09 11:55:03.921084035 +0000 UTC
+	Policies Validated  :	153
+	Violated Policies   :	0
+	Low                 :	0
+	Medium              :	0
+	High                :	0
+	
